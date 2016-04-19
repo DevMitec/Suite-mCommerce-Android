@@ -201,6 +201,8 @@ En caso de que haya un error, el objeto `beanPaymentWithToken` vendrá nulo y el
 * **T010**	Monto invalido
 * **T011**	Moneda invalida
 * **T012**	Parámetros inválidos
+* **T013**	La tarjeta proporcionada no corresponde con el token
+* **T014**	Compañía invalida
 
 
 
