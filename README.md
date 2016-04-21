@@ -33,7 +33,6 @@ El activity o contexto que necesite alguno de los servicios deberá implementar 
 
 En caso de que alguno de estos parámetros estén incorrectos, se regresará un error:
 
-* **C001**	Compañía invalida
 * **C002**	Ambiente invalido
 * **C003**	Contexto invalido
 * **S001**	Error de conexión
@@ -46,22 +45,95 @@ El cobro se hace mediante WebPay el cual facilita la integración al portal del 
 
 Para invocar el servicio de cobro
 
-`suiteController.sndPay(String company, String amount, String reference, PaymentType paymentType, Currency currency, String apiKey, String xmlM); `
+`suiteController.sndPay(String company, String xmlA, String xmlM); `
 
 Donde:
 
 * **company**: es el ID de la compañía de CDP.
-* **amount**: es el monto de la transacción.
-* **reference**: la referencia para el cobro.
-* **paymentType**: es un enum que corresponderá la modalidad de pago (contado, 3msi, 6 msi)
-* **currency**: es un enum que corresponde al tipo de moneda (MXN, USD)
-* **apiKey**: es la semilla para procesar el cobro proporcionada al comercio
+* **xmlA**: es la cadena proporcionada por el integrador
 * **xmlM**: es la cadena única que se le proporciona al comercio.
 * **(NOTA: Estos datos le serán proporcionados por MIT)**
 
-El delegado que responde a esta función es `didFinishPayProcess(BeanPaymentResponse beanPaymentResponse, SuiteError suiteError)`
+Para generar la cadena xmlA se debe seguir el siguiente procedimiento:
 
-Donde en caso de que la transacción sea exitosa la información de cobro vendrá en el `beanPaymentResponse` y el objeto `suiteError` vendrá nulo. El bean tiene los siguientes atributos:
+1. Formar la cadena agregando los datos de la transacción al xml.
+2. Encriptar todo el xml a través del algoritmo AES, y con la “semilla” que será proporcionada por MIT, así la cadena será hexadecimal.
+
+Formato de la cadena xmla y los datos que la componen:
+
+<xml>
+         <tpPago>C</tpPago>
+         <amount>0.01</amount>
+         <urlResponse>https://suitemcommerce.com</urlResponse>
+         <referencia>NUM_FACTURA</referencia>
+         <moneda>MXN</moneda>
+         <date_hour> 2013-07-10T14:49:24-05:00<date_hour>
+
+
+**Parametros XMLA
+
+* **tpPago**
+
+Establece el tipo de pago con el que se realizará el cargo, ya sea de contado ó meses. 
+
+ _tpPago---------Forma de pago---------------Tipo de afiliación_
+* C-------------Pago de contado-------------Afiliación de contado 
+* 3M------------Pago a 3 meses--------------Afiliación a 3 meses 
+* 6M------------Pago a 6 meses--------------Afiliación a 6 meses
+
+
+**amount**
+
+Establece el Importe por el que se realizará la solicitud de cargo. El importe deberá enviarse sin comas (en caso de miles), con punto y 2 decimales. Ejemplos:
+ 
+ _Valor Incorrecto------Descripción del Error-----------Valor Correcto_ 
+* 12,530.34-------------Comas en miles------------------12530.34 
+* 12.530,34-------------Formato Europeo-----------------12530.34 
+* 12,530.3476-----------Más de 2 decimales--------------12530.34 
+* 12 530.34-------------Espacios en importe-------------12530.34 
+* $-12530.34------------Signo negativo y de moneda------12530.34
+
+
+**urlResponse**
+
+Está será por default **https://suitemcommerce.com**
+
+
+**referencia**
+
+Será la referencia por el motivo de cobro
+
+
+**moneda**
+
+Establece el tipo de moneda con el que se realizará el cargo, los valores que acepta CENTRO DE PAGOS son MXN y USD. 
+
+Los requisitos para el comercio son: 
+
+ _Moneda-----------------Requisitos_ 
+* MXN-------------------Afiliación Bancaria en Pesos Chequera en Pesos 
+* USD-------------------Afiliación Bancaria en Dólares Chequera en Dólares 
+
+La regulación mexicana sólo permite el cargo en dólares a clientes del comercio con tarjetas bancarias emitidas fuera de la República Mexicana.
+
+
+**date_hour**
+
+Fecha/Hora actual del servidor del comercio en formato ISO8601. 
+Ejemplo: 
+2013-07-10T14:49:24-05:00
+
+**Respuesta**
+
+El delegado que responde a esta función es `didFinishPayProcess(String response, SuiteError suiteError)`
+
+Donde en caso de que la transacción sea exitosa la información de cobro vendrá en el parámetro response y el objeto suiteError vendrá nulo.
+
+> **La respuesta tendrá que ser descifrada con la llave que se encripta el xml.**
+
+
+El bean tiene los siguientes atributos:
+
 
 * **Reference**: Referencia del cobro
 * **Response**: Aprobada/denegada/error
@@ -72,15 +144,11 @@ Donde en caso de que la transacción sea exitosa la información de cobro vendr�
 * **Amount**: Monto de la transacción
 * **Type**: Tipo de tarjeta
 
-En caso de que haya un error, el objeto beanPaymentResponse vendrá nulo y el objeto `suiteError` tendrá la información asociada al error.
+En caso de que haya un error, la respuesta vendrá nulo y el objeto `suiteError` tendrá la información asociada al error.
 
-* **P001**	Monto invalido
-* **P002**	Referencia invalida
-* **P003**	Forma de pago invalida
-* **P004**	Moneda invalida
-* **P005**	Payment error
-* **P006**	Apikey invalida
-* **P007**	XMLM invalido
+* **P001**	Compañía invalida
+* **P002**	XMLA invalido
+* **P003**	XMLM invalido
 
 ## Autenticación
 
