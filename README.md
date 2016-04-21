@@ -61,13 +61,15 @@ Para generar la cadena xmlA se debe seguir el siguiente procedimiento:
 
 Formato de la cadena xmla y los datos que la componen:
 
+<pre><code>
 <xml>
-         <tpPago>C</tpPago>
-         <amount>0.01</amount>
-         <urlResponse>https://suitemcommerce.com</urlResponse>
-         <referencia>NUM_FACTURA</referencia>
-         <moneda>MXN</moneda>
-         <date_hour> 2013-07-10T14:49:24-05:00<date_hour>
+<tpPago>C</tpPago>
+<amount>0.01</amount>
+<urlResponse>https://suitemcommerce.com</urlResponse>
+<referencia>NUM_FACTURA</referencia>
+<moneda>MXN</moneda>
+<date_hour> 2013-07-10T14:49:24-05:00<date_hour>
+</code></pre>
 
 
 **Parametros XMLA
@@ -75,23 +77,26 @@ Formato de la cadena xmla y los datos que la componen:
 * **tpPago**
 
 Establece el tipo de pago con el que se realizará el cargo, ya sea de contado ó meses. 
-
- _tpPago---------Forma de pago---------------Tipo de afiliación_
-* C-------------Pago de contado-------------Afiliación de contado 
-* 3M------------Pago a 3 meses--------------Afiliación a 3 meses 
-* 6M------------Pago a 6 meses--------------Afiliación a 6 meses
+<pre><code>
+ tpPago           Forma de pago          Tipo de afiliación
+C                 Pago de contado        Afiliación de contado 
+3M                Pago a 3 meses         Afiliación a 3 meses 
+6M                Pago a 6 meses         Afiliación a 6 meses
+</code></pre>
 
 
 **amount**
 
 Establece el Importe por el que se realizará la solicitud de cargo. El importe deberá enviarse sin comas (en caso de miles), con punto y 2 decimales. Ejemplos:
  
- _Valor Incorrecto------Descripción del Error-----------Valor Correcto_ 
-* 12,530.34-------------Comas en miles------------------12530.34 
-* 12.530,34-------------Formato Europeo-----------------12530.34 
-* 12,530.3476-----------Más de 2 decimales--------------12530.34 
-* 12 530.34-------------Espacios en importe-------------12530.34 
-* $-12530.34------------Signo negativo y de moneda------12530.34
+<pre><code>
+_Valor Incorrecto      Descripción del Error           Valor Correcto_
+* 12,530.34            Comas en miles                  12530.34 
+* 12.530,34            Formato Europeo                 12530.34 
+* 12,530.3476          Más de 2 decimales              12530.34 
+* 12 530.34            Espacios en importe             12530.34 
+* $-12530.34           Signo negativo y de moneda      12530.34
+</code></pre>
 
 
 **urlResponse**
@@ -110,9 +115,12 @@ Establece el tipo de moneda con el que se realizará el cargo, los valores que a
 
 Los requisitos para el comercio son: 
 
- _Moneda-----------------Requisitos_ 
-* MXN-------------------Afiliación Bancaria en Pesos Chequera en Pesos 
-* USD-------------------Afiliación Bancaria en Dólares Chequera en Dólares 
+<pre><code>
+ _Moneda                Requisitos_ 
+* MXN                   Afiliación Bancaria en Pesos Chequera en Pesos 
+* USD                   Afiliación Bancaria en Dólares Chequera en Dólares 
+</code></pre>
+
 
 La regulación mexicana sólo permite el cargo en dólares a clientes del comercio con tarjetas bancarias emitidas fuera de la República Mexicana.
 
