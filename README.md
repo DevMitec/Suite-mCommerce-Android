@@ -24,7 +24,7 @@ Se inicializa el controlador mCommerce para llamar las funciones de la suite.
 `suiteController =  new suiteMCommerce(Environment environment, Context context, SuiteControllerDelegate delegate);`
 
 Donde:
-* **environment** es un enum correspondiente a un ambiente (DEV, QA, PROD)
+* **environment** es un enum correspondiente a un ambiente (SANDBOX,DEV, QA, PROD)
 * **context** es el contexto de la actividad para implementación de funcionalidades.
 * **delegate** es la interfaz implementada en el contexto
 
