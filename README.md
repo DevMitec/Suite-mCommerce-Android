@@ -174,7 +174,6 @@ Donde `beeanTokenization` tiene los siguientes atributos:
 * **merchant** es la afiliación
 * **currency** es un enum que corresponde al tipo de moneda (MXN, USD)
 * **operationType** es el número de operativa para realizar el cobro.
-* **token** es el token asociado a una tarjeta
 * **reference** es la referencia con la cual se realizará el cobro.
 * **amount** es el monto por el cual se realizará el cobro.
 
