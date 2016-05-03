@@ -63,13 +63,13 @@ Formato de la cadena xmla y los datos que la componen:
 
 <pre>
 <code>
-<xml>
-<tpPago>C</tpPago>
-<amount>0.01</amount>
-<urlResponse>https://suitemcommerce.com</urlResponse>
-<referencia>NUM_FACTURA</referencia>
-<moneda>MXN</moneda>
-<date_hour> 2013-07-10T14:49:24-05:00<date_hour>
+&lt;xml&gt;
+&lt;tpPago&gt;C&lt;/tpPago&gt;
+&lt;amount&gt;0.01&lt;/amount&gt;
+&lt;urlResponse&gt;https://suitemcommerce.com&lt;/urlResponse&gt;
+&lt;referencia&gt;NUM_FACTURA&lt;/referencia&gt;
+&lt;moneda&gt;MXN&lt;/moneda&gt;
+&lt;date_hour&gt; 2013-07-10T14:49:24-05:00&lt;date_hour&gt;
 </code>
 </pre>
 
