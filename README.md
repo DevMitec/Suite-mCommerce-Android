@@ -61,7 +61,8 @@ Para generar la cadena xmlA se debe seguir el siguiente procedimiento:
 
 Formato de la cadena xmla y los datos que la componen:
 
-<pre><code>
+<pre>
+<code>
 <xml>
 <tpPago>C</tpPago>
 <amount>0.01</amount>
@@ -69,8 +70,8 @@ Formato de la cadena xmla y los datos que la componen:
 <referencia>NUM_FACTURA</referencia>
 <moneda>MXN</moneda>
 <date_hour> 2013-07-10T14:49:24-05:00<date_hour>
-</code></pre>
-
+</code>
+</pre>
 
 
 **Parametros XMLA
