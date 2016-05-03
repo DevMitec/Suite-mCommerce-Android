@@ -72,6 +72,7 @@ Formato de la cadena xmla y los datos que la componen:
 </code></pre>
 
 
+
 **Parametros XMLA
 
 * **tpPago**
