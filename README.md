@@ -1,4 +1,4 @@
-# Suite MCommerceMIT Android Versión 1.0.9
+# Suite MCommerceMIT Android Versión 1.1.0
 
 ## Prefacio
 
